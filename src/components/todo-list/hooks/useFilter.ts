@@ -1,7 +1,9 @@
-import { FilterItem, Todo } from '../types/todo'
+import { FilterStateType, Todo, TodoStateType } from '../types/todo'
 import { computed, reactive } from 'vue'
+// 所有key类型值
+type FiltersKeyType = keyof typeof filters;
 
-const filters: any = {
+const filters = {
   all(todoList: Array<Todo>) {
     return todoList;
   },
@@ -12,17 +14,18 @@ const filters: any = {
     return todoList.filter((item) => item.done);
   },
 };
-export const useFilter = (todoState: any) => {
-  const filterState: any = reactive({
-    filterTag: "all" as string,
+export const useFilter = (todoState: TodoStateType) => {
+  const filterState: FilterStateType = reactive({
+    filterTag: "all",
     filterItems: [
       { label: "All", value: "all" },
       { label: "TODO", value: "todo" },
       { label: "DONE", value: "done" },
-    ] as Array<FilterItem>,
+    ],
     filterList: computed(() => {
-      return filters[filterState.filterTag](todoState.todoList);
+      return filters[filterState.filterTag as FiltersKeyType](todoState.todoList);
     })
   });
+
   return filterState
 }

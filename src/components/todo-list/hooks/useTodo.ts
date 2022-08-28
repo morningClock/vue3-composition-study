@@ -1,13 +1,14 @@
 import { reactive, watchEffect } from 'vue';
-import { Todo } from '../types/todo'
+import { Todo, TodoStateType } from '../types/todo'
+
 
 export const useTodo = () => {
-  const todoState = reactive({
+  const todoState: TodoStateType = reactive({
     todoList: JSON.parse(
       window.localStorage.getItem("TODO_LIST") || "[]"
-    ) as Array<Todo>,
-    editingTodo: null as Todo | null, //正在编辑的todo
-    inputTodo: "" as string,
+    ),
+    editingTodo: null, //正在编辑的todo
+    inputTodo: "",
   });
 
   // 新增任务
@@ -25,7 +26,7 @@ export const useTodo = () => {
   };
   // 移除任务
   const removeTodo = (todo: Todo) => {
-    todoState.todoList = todoState.todoList.filter((item) => item.id !== todo.id);
+    todoState.todoList = todoState.todoList.filter((item: Todo) => item.id !== todo.id);
   };
 
   // 缓存
