@@ -29,10 +29,11 @@
 </template>
 
 <script setup lang="ts">
+import { toRefs } from "vue";
+// components
 import TodoItem from "./TodoItem.vue";
 import TodoFilter from "./TodoFilter.vue";
-import { toRefs } from "vue";
-
+// hooks
 import { useTodo } from "./hooks/useTodo";
 import { useFilter } from "./hooks/useFilter";
 
